@@ -54,6 +54,7 @@ namespace IngameScript
 
         public void Save()
         {
+            Storage = ActiveAlert.ToString();
             // Called when the program needs to save its state. Use
             // this method to save your state to the Storage field
             // or some other means. 
@@ -61,6 +62,14 @@ namespace IngameScript
             // This method is optional and can be removed if not
             // needed.
         }
+        bool ActiveAlert = false;
+        int AlarmCount = 0;
+        int TicksPerAlarm = 20;
+        
+        int AlarmRepeat = 0;
+        bool AlarmToggle = false;
+        List<Color> DefaultColors = new List<Color>();
+
 
         public void Main(string argument, UpdateType updateSource)
         {
@@ -71,12 +80,6 @@ namespace IngameScript
                 Echo("No Lights Found!");
             }
 
-            foreach (IMyLightingBlock l in lights){
-                int id = l.GetHashCode(); //figure out how to fetch light rgb
-
-                var defaultColor = l.GetValueColor(id.ToString());
-                
-            }
 
             var button = new List<IMyButtonPanel>();
             GridTerminalSystem.GetBlocksOfType<IMyButtonPanel>(button); //list of buttons for alarm
@@ -86,9 +89,11 @@ namespace IngameScript
             }
             for (int i =0; i < button.Count; i++){
                 var b = button[i];
-                if (b.CustomName.Contains("Red Alert")){
-                    
+                if (argument == "Alert"){
+                    AlarmToggle = true;
                 }
+                    
+                
             }
 
             var alarm = new List<IMySoundBlock>();
@@ -98,11 +103,11 @@ namespace IngameScript
                 Echo("No Sound Block Found");
             }
             
-            bool pressed = false;
+            
         }
             
 
-            public void RedAert(){
+            public void RedAlert(){
                 
             }
  
