@@ -7,6 +7,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Immutable;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using VRage;
@@ -67,6 +68,13 @@ namespace IngameScript
                 Echo("No Lights Found!");
             }
 
+            foreach (IMyLightingBlock l in lights){
+                long id = l.GetProperties(ColorDefinitionRGBA); //figure out how to fetch light rgb
+                
+                var defaultColor = l.GetValueColor()
+                
+            }
+
             var button = new List<IMyButtonPanel>();
             GridTerminalSystem.GetBlocksOfType<IMyButtonPanel>(button); //list of buttons for alarm
 
@@ -88,6 +96,8 @@ namespace IngameScript
             }
             
             bool pressed = false;
+
+            //create helper action that sets lights to red and alarm claxon 3 times
 
             
             // The main entry point of the script, invoked every time
