@@ -1,4 +1,5 @@
-﻿using Sandbox.Game.EntityComponents;
+﻿using Sandbox.Game.Entities.Blocks;
+using Sandbox.Game.EntityComponents;
 using Sandbox.ModAPI.Ingame;
 using Sandbox.ModAPI.Interfaces;
 using SpaceEngineers.Game.ModAPI.Ingame;
@@ -16,6 +17,7 @@ using VRage.Game.GUI.TextPanel;
 using VRage.Game.ModAPI.Ingame;
 using VRage.Game.ModAPI.Ingame.Utilities;
 using VRage.Game.ObjectBuilders.Definitions;
+using VRage.Input;
 using VRageMath;
 
 namespace IngameScript
@@ -58,6 +60,36 @@ namespace IngameScript
 
         public void Main(string argument, UpdateType updateSource)
         {
+            var lights = new List<IMyLightingBlock>();
+            GridTerminalSystem.GetBlocksOfType<IMyLightingBlock>(lights); //list of lights to change colors
+
+            if (lights.Count == 0){
+                Echo("No Lights Found!");
+            }
+
+            var button = new List<IMyButtonPanel>();
+            GridTerminalSystem.GetBlocksOfType<IMyButtonPanel>(button); //list of buttons for alarm
+
+            if (button.Count == 0){
+                Echo("No Lights Found");
+            }
+            for (int i =0; i < button.Count; i++){
+                var b = button[i];
+                if (b.CustomName.Contains("Red Alert")){
+                    
+                }
+            }
+
+            var alarm = new List<IMySoundBlock>();
+            GridTerminalSystem.GetBlocksOfType<IMySoundBlock>(alarm); //list of sound blocks for alarm sound
+
+            if (alarm.Count == 0){
+                Echo("No Sound Block Found");
+            }
+            
+            bool pressed = false;
+
+            
             // The main entry point of the script, invoked every time
             // one of the programmable block's Run actions are invoked,
             // or the script updates itself. The updateSource argument
