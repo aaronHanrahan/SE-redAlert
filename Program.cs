@@ -1,5 +1,6 @@
 ﻿using Sandbox.Game.Entities.Blocks;
 using Sandbox.Game.EntityComponents;
+using Sandbox.Game.Lights;
 using Sandbox.ModAPI.Ingame;
 using Sandbox.ModAPI.Interfaces;
 using SpaceEngineers.Game.ModAPI.Ingame;
@@ -9,6 +10,7 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.ComponentModel;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using VRage;
 using VRage.Collections;
@@ -37,6 +39,7 @@ namespace IngameScript
 
         public Program()
         {
+            Runtime.UpdateFrequency = UpdateFrequency.None;
             // The constructor, called only once every session and
             // always before any other method is called. Use it to
             // initialize your script. 
@@ -69,9 +72,9 @@ namespace IngameScript
             }
 
             foreach (IMyLightingBlock l in lights){
-                long id = l.GetProperties(ColorDefinitionRGBA); //figure out how to fetch light rgb
-                
-                var defaultColor = l.GetValueColor()
+                int id = l.GetHashCode(); //figure out how to fetch light rgb
+
+                var defaultColor = l.GetValueColor(id.ToString());
                 
             }
 
@@ -96,7 +99,13 @@ namespace IngameScript
             }
             
             bool pressed = false;
+        }
+            
 
+            public void RedAert(){
+                
+            }
+ 
             //create helper action that sets lights to red and alarm claxon 3 times
 
             
@@ -111,4 +120,4 @@ namespace IngameScript
             // can be removed if not needed.
         }
     }
-}
+
